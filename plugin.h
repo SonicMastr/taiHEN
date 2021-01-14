@@ -20,6 +20,9 @@
 /** Fallback if the configuration file is not found. */
 #define TAIHEN_RECOVERY_CONFIG_FILE "ur0:tai/config.txt"
 
+/** Final fallback if the fallback configuration file is not found. Lord help them*/
+#define TAIHEN_FINAL_RECOVERY_CONFIG_FILE "os0:tai/config.txt"
+
 int plugin_init(void);
 void plugin_deinit(void);
 

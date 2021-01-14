@@ -5,7 +5,7 @@
  * This software may be modified and distributed under the terms
  * of the MIT license.  See the LICENSE file for details.
  */
-#include <psp2kern/io/fcntl.h>
+#include <psp2kern/kernel/iofilemgr.h>
 #include <psp2kern/kernel/sysmem.h>
 #include <psp2kern/kernel/modulemgr.h>
 #include <psp2kern/kernel/threadmgr.h>
@@ -77,8 +77,13 @@ int plugin_load_config(void) {
     LOG("opening recovery config %s", TAIHEN_RECOVERY_CONFIG_FILE);
     fd = ksceIoOpen(TAIHEN_RECOVERY_CONFIG_FILE, SCE_O_RDONLY, 0);
     if (fd < 0) {
-      ret = fd;
-      goto end;
+      LOG("failed to open config %s", TAIHEN_RECOVERY_CONFIG_FILE);
+      LOG("opening final recovery config %s", TAIHEN_FINAL_RECOVERY_CONFIG_FILE);
+      fd = ksceIoOpen(TAIHEN_FINAL_RECOVERY_CONFIG_FILE, SCE_O_RDONLY, 0);
+      if (fd < 0) {
+        ret = fd;
+        goto end;
+      }
     }
   }
 
